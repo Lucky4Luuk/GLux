@@ -1,0 +1,11 @@
+[package]
+name = "glux"
+version = "0.1.0"
+authors = ["Luuk van Oijen"]
+edition = "2018"
+
+[dependencies]
+sdl2 = { version = "0.33", features = ["bundled"] }
+gl = "0.14.0"
+
+log = "*"
