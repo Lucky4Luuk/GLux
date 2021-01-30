@@ -23,6 +23,16 @@ impl BufferType for BufferTypeSSBO {
 }
 pub type ShaderStorageBuffer = Buffer<BufferTypeSSBO>;
 
+impl ShaderStorageBuffer {
+    pub fn bind_buffer_base(&self, index: u32) {
+        self.bind();
+        unsafe {
+            gl::BindBufferBase(gl::SHADER_STORAGE_BUFFER, index, self.vbo);
+        }
+        self.unbind();
+    }
+}
+
 pub struct Buffer<B> where B: BufferType {
     vbo: gl::types::GLuint,
     _marker: std::marker::PhantomData<B>,

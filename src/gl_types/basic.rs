@@ -128,3 +128,10 @@ impl UniformValue for f32_f32_f32_f32 {
         unsafe { gl::Uniform4f(loc, self.d0, self.d1, self.d2, self.d3); }
     }
 }
+
+impl UniformValue for glam::Mat4 {
+    fn update(&self, shader: &ShaderProgram, name: &CString) {
+        let loc = unsafe { gl::GetUniformLocation(shader.id, name.as_ptr()) };
+        unsafe { gl::UniformMatrix4fv(loc, 1, gl::FALSE, self.to_cols_array().as_ptr()); }
+    }
+}

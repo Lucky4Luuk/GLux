@@ -9,3 +9,5 @@ sdl2 = { version = "0.33", features = ["bundled"] }
 gl = "0.14.0"
 
 log = "*"
+
+glam = "*"
