@@ -18,9 +18,9 @@ impl Texture {
             gl::GenTextures(1, &mut id);
             gl::ActiveTexture(gl::TEXTURE0);
             gl::BindTexture(gl::TEXTURE_2D, id);
-            gl::TexImage2D(gl::TEXTURE_2D, 0, format, size.0, size.1, 0, internal_format, gl::FLOAT, data);
-            gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_MAG_FILTER, gl::NEAREST as i32); //possibly make the filtering linear?
+            gl::TexImage2D(gl::TEXTURE_2D, 0, format, size.0, size.1, 0, internal_format, gl::UNSIGNED_BYTE, data);
             gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_MIN_FILTER, gl::NEAREST as i32);
+            gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_MAG_FILTER, gl::LINEAR as i32);
             gl::BindTexture(gl::TEXTURE_2D, 0);
         }
         Self {
