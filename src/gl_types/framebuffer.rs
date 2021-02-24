@@ -25,17 +25,21 @@ impl Framebuffer {
 
     //TODO: Support 3D textures too
     pub fn set_color_attachment(&mut self, texture: Texture) {
+        self.bind();
         unsafe {
             gl::FramebufferTexture2D(gl::FRAMEBUFFER, gl::COLOR_ATTACHMENT0, gl::TEXTURE_2D, texture.id, 0);
         }
         self.col = Some(texture); //Take ownership of texture, we don't want to drop it
+        self.unbind();
     }
 
     pub fn set_depth_attachment(&mut self, texture: Texture) {
+        self.bind();
         unsafe {
             gl::FramebufferTexture2D(gl::FRAMEBUFFER, gl::DEPTH_ATTACHMENT, gl::TEXTURE_2D, texture.id, 0);
         }
         self.depth = Some(texture); //Take ownership
+        self.unbind();
     }
 
     pub fn bind(&self) {
