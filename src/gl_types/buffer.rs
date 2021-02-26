@@ -62,6 +62,18 @@ impl<B> Buffer<B> where B: BufferType {
             gl::BindBuffer(B::BUFFER_TYPE, 0);
         }
     }
+    
+    //TODO: Remove this function
+    pub fn static_draw_data<T>(&self, data: &[T]) {
+        unsafe {
+            gl::BufferData(
+                B::BUFFER_TYPE, // target
+                (data.len() * ::std::mem::size_of::<T>()) as gl::types::GLsizeiptr, // size of data in bytes
+                data.as_ptr() as *const gl::types::GLvoid, // pointer to data
+                gl::STATIC_DRAW,
+            );
+        }
+    }
 
     pub fn data<T>(&self, data: &[T], usage: gl::types::GLenum) {
         unsafe {
