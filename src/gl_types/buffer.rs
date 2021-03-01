@@ -85,6 +85,17 @@ impl<B> Buffer<B> where B: BufferType {
             );
         }
     }
+    
+    pub fn sub_data<T>(&self, data: &[T], offset: isize) {
+        unsafe {
+            gl::BufferSubData(
+                B::BUFFER_TYPE, // target
+                offset,
+                (data.len() * ::std::mem::size_of::<T>()) as gl::types::GLsizeiptr, // size of data in bytes
+                data.as_ptr() as *const gl::types::GLvoid, // pointer to data
+            );
+        }
+    }  
 }
 
 impl<B> Drop for Buffer<B> where B: BufferType {
